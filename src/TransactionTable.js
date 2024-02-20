@@ -1,38 +1,33 @@
+// Importing React
 import React from 'react';
 
-function TransactionList({ transactions }) {
-  // Check if transactions is undefined or null before attempting to map
-  if (!transactions || !Array.isArray(transactions)) {
-    return <div>No transactions available</div>;
-  }
+// TransactionTable component for displaying transaction data
+const TransactionTable = ({ transactions }) => (
+  <table id='transactionTable'>
+    <thead>
+      {/* Table header row with column names */}
+      <tr id='tablerow'>
+        <th className='tablehead'>ID</th>
+        <th className='tablehead'>Date</th>
+        <th className='tablehead'>Description</th>
+        <th className='tablehead'>Category</th>
+        <th className='tablehead'>Amount</th>
+      </tr>
+    </thead>
+    <tbody id='tablebody'>
+      {/* Mapping through transactions to display data in rows */}
+      {transactions.map((transaction) => (
+        <tr key={transaction.id} id='datacont'>
+          <td className='tabledata'>{transaction.id}</td>
+          <td className='tabledata'>{transaction.date}</td>
+          <td className='tabledata'>{transaction.description}</td>
+          <td className='tabledata'>{transaction.category}</td>
+          <td className='tabledata'>{transaction.amount}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
 
-  return (
-    <div>
-      <h2>Transactions</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map(transaction => (
-            <tr key={transaction.id}>
-              <td>{transaction.id}</td>
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>{transaction.category}</td>
-              <td>{transaction.amount}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export default TransactionList;
+// Export the TransactionTable component
+export default TransactionTable;
