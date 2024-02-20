@@ -1,34 +1,66 @@
-// TransactionForm.js
+// Importing React and the other hooks
 import React, { useState } from 'react';
 
-function TransactionForm({ onAddTransaction }) {
-  const [newTransaction, setNewTransaction] = useState({ description: '', category: '', amount: '' });
 
-  const handleChange = e => {
+const TransactionForm = ({ onAddTransaction, transactionCount }) => {
+  const [newTransaction, setNewTransaction] = useState({
+    description: '',
+    amount: '',
+    category: '',
+    date: '',
+  });
+
+  // Function to handle input changes in the form
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewTransaction(prevTransaction => ({
-      ...prevTransaction,
-      [name]: value
-    }));
+    setNewTransaction({ ...newTransaction, [name]: value });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    onAddTransaction(newTransaction);
-    setNewTransaction({ description: '', category: '', amount: '' });
+  // Function to handle adding of a new transaction
+  const handleAddClick = () => {
+    // Create a new transaction with a unique ID
+    const numberedTransaction = { ...newTransaction, id: transactionCount + 1 };
+
+    onAddTransaction(numberedTransaction);
+
+    setNewTransaction({ description: '', amount: '', category: '', date: '' });
   };
 
+  // Render the form with input fields and a button
   return (
-    <div>
-      <h2>Add Transaction</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="description" placeholder="Description" value={newTransaction.description} onChange={handleChange} />
-        <input type="text" name="category" placeholder="Category" value={newTransaction.category} onChange={handleChange} />
-        <input type="text" name="amount" placeholder="Amount" value={newTransaction.amount} onChange={handleChange} />
-        <button type="submit">Add Transaction</button>
-      </form>
+    <div id='formholder'>
+      <input className='formInput'
+        type="text"
+        placeholder="Description"
+        name="description"
+        value={newTransaction.description}
+        onChange={handleInputChange}
+      />
+      <input className='formInput'
+        type="number"
+        placeholder="Amount"
+        name="amount"
+        value={newTransaction.amount}
+        onChange={handleInputChange}
+      />
+      <input className='formInput'
+        type="text"
+        placeholder="Category"
+        name="category"
+        value={newTransaction.category}
+        onChange={handleInputChange}
+      />
+      <input className='formInput'
+        type="text"
+        placeholder="Date"
+        name="date"
+        value={newTransaction.date}
+        onChange={handleInputChange}
+      />
+      <button id='transactionButton' onClick={handleAddClick}>Add Transaction</button>
     </div>
   );
-}
+};
 
+// Export the TransactionForm component
 export default TransactionForm;
