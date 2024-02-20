@@ -1,12 +1,18 @@
-// SearchBar.js
+// Importing React
 import React from 'react';
 
-function SearchBar({ searchTerm, onSearchChange }) {
-  return (
-    <div>
-      <input type="text" placeholder="Search by description" value={searchTerm} onChange={e => onSearchChange(e.target.value)} />
-    </div>
-  );
-}
+// SearchBar component for filtering transactions
+const SearchBar = ({ searchTerm, onSearchChange }) => (
+  <div id='searchdiv'>
+    {/* Input field for entering search term */}
+    <input id='searchbar'
+      type="text"
+      placeholder="Search transactions..."
+      value={searchTerm}
+      onChange={(e) => onSearchChange(e.target.value)}
+    />
+  </div>
+);
 
+// Export the SearchBar component
 export default SearchBar;
